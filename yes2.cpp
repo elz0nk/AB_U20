@@ -125,7 +125,7 @@ public:
 
     void eliminarCita(Paciente* paciente, Medico* medico, Fecha fecha) {
         citas.erase(remove_if(citas.begin(), citas.end(),
-            [&](const CitaMedica& c) { return c.paciente == paciente && c.medico == medico && c.fecha == fecha; }), citas.end());
+            [&](const CitaMedica& c) { return c.paciente == paciente && c.medico == medico && c.fecha.anio == fecha.anio && c.fecha.mes == fecha.mes && c.fecha.dia == fecha.dia; }), citas.end());
     }
 
     void ordenarCitasPorFecha() {
