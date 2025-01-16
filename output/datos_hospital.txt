@@ -1,0 +1,9 @@
+Pacientes:
+Alice,001,12/5/1992
+Bob,002,24/11/1985
+Medicos:
+Dr. Smith,Cardiologia
+Dr. Jones,Neurologia
+Citas:
+15/6/2023,Alice,Dr. Smith,Chequeo general
+20/6/2023,Bob,Dr. Jones,Consulta neurologica
