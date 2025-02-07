@@ -13,9 +13,10 @@ public:
     string nombre;
     string identificacion;
     Fecha fecha_ingreso;
+    string direccion;
     vector<string> historial_clinico;
 
-    Paciente(string nom, string id, Fecha fecha) : nombre(nom), identificacion(id), fecha_ingreso(fecha) {}
+    Paciente(string nom, string id, Fecha fecha, string dir) : nombre(nom), identificacion(id), fecha_ingreso(fecha), direccion(dir) {}
 
     void agregarHistorial(string registro) {
         historial_clinico.push_back(registro);
@@ -29,7 +30,7 @@ public:
     }
 
     string toString() const {
-        return nombre + ", ID: " + identificacion + ", Fecha de ingreso: " + fecha_ingreso.toString();
+        return nombre + ", ID: " + identificacion + ", Fecha de nacimiento: " + fecha_ingreso.toString() + ", Dirección: " + direccion;
     }
 };
 
