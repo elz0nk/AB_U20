@@ -11,32 +11,34 @@ using namespace std;
 int main()
 {
     SistemaHospital hospital;
-    int opcion;
-    while (true)
+    int opcion=0;
+    while (opcion<13)
     {
-        cout << "Sistema de gestión hospitalaria" << endl;
+        cout << "Sistema de gestion hospitalaria" << endl;
         cout << "===============================" << endl;
         cout << endl;
-        cout << "Elija qué desea hacer:" << endl;
+        cout << "Elija que desea hacer:" << endl;
         cout << "=====================" << endl;
         cout << "1.  Agregar paciente" << endl;
         cout << "2.  Eliminar paciente" << endl;
         cout << "3.  Modificar paciente" << endl;
-        cout << "4.  Agregar médico" << endl;
-        cout << "5.  Eliminar médico" << endl;
-        cout << "6.  Modificar médico" << endl;
-        cout << "7.  Agregar cita médica" << endl;
-        cout << "8.  Eliminar cita médica" << endl;
+        cout << "4.  Agregar medico" << endl;
+        cout << "5.  Eliminar medico" << endl;
+        cout << "6.  Modificar medico" << endl;
+        cout << "7.  Agregar cita medica" << endl;
+        cout << "8.  Eliminar cita medica" << endl;
         cout << "9.  Mostrar pacientes" << endl;
-        cout << "10. Mostrar médicos" << endl;
-        cout << "11. Mostrar citas médicas" << endl;
+        cout << "10. Mostrar medicos" << endl;
+        cout << "11. Mostrar citas medicas" << endl;
         cout << "12. Guardar datos" << endl;
         cout << "13. Salir" << endl;
         cin >> opcion;
-
-        if (opcion == 13)
+        if (!cin.good()) 
         {
-            break;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Opcion invalida, introduzca un valor valido" << endl;
+            continue;
         }
 
         string nombre, id, dir, esp;
@@ -46,77 +48,86 @@ int main()
         {
         case 1:{
             cout << "Ingrese el nombre del paciente: ";
-            cin >> nombre;
+            cin.ignore();
+            getline(cin, nombre);
 
-            cout << "Ingrese la identificación del paciente: ";
+            cout << "Ingrese la identificacion del paciente: ";
             cin >> id;
 
             cout << "Ingrese la fecha de nacimiento del paciente (dd mm aaaa): ";
             cin >> dia >> mes >> anio;
 
-            cout << "Ingrese la dirección del paciente: ";
-            cin >> dir;
+            cout << "Ingrese la direccion del paciente: ";
+            cin.ignore();
+            getline(cin, dir);
 
-            hospital.agregarPaciente(Paciente(nombre, id, Fecha(dia, mes, anio), dir));
+            hospital.agregarPaciente(new Paciente(nombre, id, Fecha(dia, mes, anio), dir));
             break;
         }
         case 2:{
-            cout << "Ingrese la identificación del paciente a eliminar: ";
+            cout << "Ingrese la identificacion del paciente a eliminar: ";
             cin >> id;
             hospital.eliminarPaciente(id);
             break;
         }
         case 3:{
-            cout << "Ingrese la identificación del paciente a modificar: ";
+            cout << "Ingrese la identificacion del paciente a modificar: ";
             cin >> id;
 
             cout << "Ingrese el nuevo nombre del paciente: ";
-            cin >> nombre;
+            cin.ignore();
+            getline(cin, nombre);
 
-            cout << "Ingrese la nueva dirección del paciente: ";
-            cin >> dir;
+            cout << "Ingrese la nueva direccion del paciente: ";
+            cin.ignore();
+            getline(cin, dir);
 
             hospital.modificarPaciente(id, nombre, dir);
             break;
         }
         case 4:{
-            cout << "Ingrese el nombre del médico: ";
-            cin >> nombre;
+            cout << "Ingrese el nombre del medico: ";
+            cin.ignore();
+            getline(cin, nombre);
 
-            cout << "Ingrese la especialidad del médico: ";
-            cin >> esp;
+            cout << "Ingrese la especialidad del medico: ";
+            getline(cin, esp);
 
-            hospital.agregarMedico(Medico(nombre, esp));
+            hospital.agregarMedico(new Medico(nombre, esp));
             break;
         }
         case 5:{
-            cout << "Ingrese el nombre del médico a eliminar: ";
+            cout << "Ingrese el nombre del medico a eliminar: ";
             cin >> nombre;
             hospital.eliminarMedico(nombre);
             break;
         }
         case 6:{
-            cout << "Ingrese el nombre del médico a modificar: ";
-            cin >> nombre;
+            cout << "Ingrese el nombre del medico a modificar: ";
+            cin.ignore();
+            getline(cin, nombre);
 
-            cout << "Ingrese la nueva especialidad del médico: ";
-            cin >> esp;
+            cout << "Ingrese la nueva especialidad del medico: ";
+            cin.ignore();
+            getline(cin, esp);
 
             hospital.modificarMedico(nombre, esp);
             break;
         }
         case 7:{
-            cout << "Ingrese la identificación del paciente: ";
+            cout << "Ingrese la identificacion del paciente: ";
             cin >> id;
 
-            cout << "Ingrese el nombre del médico: ";
-            cin >> nombre;
+            cout << "Ingrese el nombre del medico: ";
+            cin.ignore();
+            getline(cin, nombre);
 
             cout << "Ingrese la fecha de la cita (dd mm aaaa): ";
             cin >> dia >> mes >> anio;
 
             cout << "Ingrese la descripción de la cita: ";
-            cin >> dir;
+            cin.ignore();
+            getline(cin, dir);
 
             Paciente* paciente = hospital.buscarPaciente(id);
             Medico* medico = hospital.buscarMedico(nombre);
@@ -127,7 +138,7 @@ int main()
             }
             else
             {
-                cout << "Paciente o médico no encontrado." << endl;
+                cout << "Paciente o medico no encontrado." << endl;
             }
             break;
         }
@@ -135,8 +146,9 @@ int main()
             cout << "Ingrese la identificación del paciente: ";
             cin >> id;
 
-            cout << "Ingrese el nombre del médico: ";
-            cin >> nombre;
+            cout << "Ingrese el nombre del medico: ";
+            cin.ignore();
+            getline(cin, nombre);
 
             cout << "Ingrese la fecha de la cita a eliminar (dd mm aaaa): ";
             cin >> dia >> mes >> anio;
@@ -146,11 +158,12 @@ int main()
 
             if (paciente != nullptr && medico != nullptr)
             {
-                hospital.eliminarCita(paciente, medico, Fecha(dia, mes, anio));
+                const CitaMedica& citaParaEliminar = CitaMedica(paciente, medico, Fecha(dia, mes, anio), string(""));
+                hospital.eliminarCita(citaParaEliminar);
             }
             else
             {
-                cout << "Paciente o médico no encontrado." << endl;
+                cout << "Paciente o medico no encontrado." << endl;
             }
             break;
         }
@@ -174,63 +187,33 @@ int main()
             break;
         }
         default:
+            opcion = 0;
+            cout << "Opcion invalida, introduzca un valor valido" << endl;
             break;
         };
 
         // Ejemplo de uso
-        Paciente p1("Alice", "001", Fecha(12, 5, 1992), "Calle 123, Ciudad");
-        Paciente p2("Bob", "002", Fecha(24, 11, 1985), "Avenida 456, Pueblo");
-        Medico m1("Dr. Smith", "Cardiología");
-        Medico m2("Dr. Jones", "Neurología");
+        // Paciente p1("Alice", "001", Fecha(12, 5, 1992), "Calle 123, Ciudad");
+        // Paciente p2("Bob", "002", Fecha(24, 11, 1985), "Avenida 456, Pueblo");
+        // Medico m1("Dr. Smith", "Cardiología");
+        // Medico m2("Dr. Jones", "Neurología");
 
-        hospital.agregarPaciente(p1);
-        hospital.agregarPaciente(p2);
-        hospital.agregarMedico(m1);
-        hospital.agregarMedico(m2);
-
-        CitaMedica c1(&p1, &m1, Fecha(15, 6, 2023), "Chequeo general");
-        CitaMedica c2(&p2, &m2, Fecha(20, 6, 2023), "Consulta neurológica");
-
-        hospital.agregarCita(c1);
-        hospital.agregarCita(c2);
-
-        hospital.ordenarCitasPorFecha();
-        hospital.mostrarPacientes();
-        hospital.mostrarMedicos();
-        hospital.mostrarCitas();
-
-        hospital.guardarDatos();
-
-        return 0;
+        // hospital.agregarPaciente(&p1);
+        // hospital.agregarPaciente(&p2);
+        // hospital.agregarMedico(&m1);
+        // hospital.agregarMedico(&m2);
+        
+        // CitaMedica c1(&p1, &m1, Fecha(15, 6, 2023), "Chequeo general");
+        // CitaMedica c2(&p2, &m2, Fecha(20, 6, 2023), "Consulta neurológica");
+        
+        // hospital.agregarCita(c1);
+        // hospital.agregarCita(c2);
+        
+        // hospital.ordenarCitasPorFecha();
+        // hospital.mostrarPacientes();
+        // hospital.mostrarMedicos();
+        // hospital.mostrarCitas();
+        
+        // hospital.guardarDatos();
     }
-
-    int main();
-    {
-        SistemaHospital hospital;
-
-        // Ejemplo de uso
-        Paciente p1("Alice", "001", Fecha(12, 5, 1992), "Calle 123, Ciudad");
-        Paciente p2("Bob", "002", Fecha(24, 11, 1985), "Avenida 456, Pueblo");
-        Medico m1("Dr. Smith", "Cardiología");
-        Medico m2("Dr. Jones", "Neurología");
-
-        hospital.agregarPaciente(p1);
-        hospital.agregarPaciente(p2);
-        hospital.agregarMedico(m1);
-        hospital.agregarMedico(m2);
-
-        CitaMedica c1(&p1, &m1, Fecha(15, 6, 2023), "Chequeo general");
-        CitaMedica c2(&p2, &m2, Fecha(20, 6, 2023), "Consulta neurológica");
-
-        hospital.agregarCita(c1);
-        hospital.agregarCita(c2);
-
-        hospital.ordenarCitasPorFecha();
-        hospital.mostrarPacientes();
-        hospital.mostrarMedicos();
-        hospital.mostrarCitas();
-
-        hospital.guardarDatos();
-
-        return 0;
-    }
+}

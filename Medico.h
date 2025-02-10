@@ -6,15 +6,16 @@
 using namespace std;
 
 struct Medico {
-public:
+private:
     string nombre;
     string especialidad;
 
+public:
     Medico(string nom, string esp) : nombre(nom), especialidad(esp) {}
-
-    string toString() const {
-        return nombre + ", Especialidad: " + especialidad;
-    }
+    string getNombreMedico() const;
+    string getEspecialidadMedico() const;
+    bool operator==(const Medico& otro) const;
+    string toString() const;
 };
 
 #endif

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Fecha {
+struct Fecha {
 public:
     int dia;
     int mes;
@@ -13,15 +13,11 @@ public:
 
     Fecha(int d, int m, int a) : dia(d), mes(m), anio(a) {}
 
-    bool operator<(const Fecha& otra) const {
-        if (anio != otra.anio) return anio < otra.anio;
-        if (mes != otra.mes) return mes < otra.mes;
-        return dia < otra.dia;
-    }
+    bool operator<(const Fecha& otra) const;
 
-    string toString() const {
-        return to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
-    }
+    bool operator==(const Fecha& otra) const;
+
+    string toString() const;
 };
 
 #endif

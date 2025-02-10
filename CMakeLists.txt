@@ -7,7 +7,14 @@ project(HospitalManagement)
 add_executable(hospital
     Hospital.cpp
     SistemaHospital.cpp
+    GestionCitas.cpp
+    GestionDatos.cpp
+    GestionMedicos.cpp
     GestionPacientes.cpp
+    CitaMedica.cpp
+    Fecha.cpp
+    Medico.cpp
+    Paciente.cpp
 )
 
 # Include directories

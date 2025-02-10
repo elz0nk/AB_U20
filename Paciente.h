@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <string>
 #include "Fecha.h"
@@ -6,32 +5,26 @@
 #ifndef PACIENTE_H
 #define PACIENTE_H
 
-using namespace std;
-
-class Paciente {
-public:
+struct Paciente {
+private:
     string nombre;
     string identificacion;
-    Fecha fecha_ingreso;
+    Fecha fecha_nacimiento;
     string direccion;
     vector<string> historial_clinico;
 
-    Paciente(string nom, string id, Fecha fecha, string dir) : nombre(nom), identificacion(id), fecha_ingreso(fecha), direccion(dir) {}
+public:
+    Paciente(string nom, string id, Fecha fecha_nac, string dir) : nombre(nom), identificacion(id), fecha_nacimiento(fecha_nac), direccion(dir) {}
+    
+    void agregarHistorial(string registro);
+    void mostrarHistorial() const;
 
-    void agregarHistorial(string registro) {
-        historial_clinico.push_back(registro);
-    }
+    string getIdentificacionPaciente() const;
+    void setNombrePaciente(string nom);
+    void setDireccionPaciente(string dir);
 
-    void mostrarHistorial() const {
-        cout << "Historial clínico de " << nombre << ":" << endl;
-        for (const string& registro : historial_clinico) {
-            cout << "- " << registro << endl;
-        }
-    }
-
-    string toString() const {
-        return nombre + ", ID: " + identificacion + ", Fecha de nacimiento: " + fecha_ingreso.toString() + ", Dirección: " + direccion;
-    }
+    bool operator==(const Paciente& otro) const;
+    string toString() const;
 };
 
 #endif

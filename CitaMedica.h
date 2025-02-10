@@ -6,7 +6,7 @@
 #ifndef CITA_MEDICA_H
 #define CITA_MEDICA_H
 
-class CitaMedica {
+struct CitaMedica {
 public:
     Paciente* paciente;
     Medico* medico;
@@ -15,9 +15,9 @@ public:
 
     CitaMedica(Paciente* p, Medico* m, Fecha f, string desc) : paciente(p), medico(m), fecha(f), descripcion(desc) {}
 
-    string toString() const {
-        return fecha.toString() + " - " + paciente->nombre + " con Dr. " + medico->nombre + ": " + descripcion;
-    }
+    bool operator==(const CitaMedica& otra) const;
+
+    string toString() const;
 };
 
 #endif
