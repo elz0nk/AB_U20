@@ -11,14 +11,14 @@ void GestionPacientes::agregarPaciente(Paciente* paciente) {
 void GestionPacientes::eliminarPaciente(const string& id) {
     pacientes.erase(remove_if(pacientes.begin(), pacientes.end(),
         [&id](Paciente* paciente) { 
-            return paciente->getIdentificacionPaciente() == id; }),
+            return paciente->getIdentificacion() == id; }),
              pacientes.end());
 }
 
 void GestionPacientes::modificarPaciente(string id, string nuevoNombre, string nuevaDireccion) {
     for (Paciente* paciente : pacientes) {
-        if (paciente->getIdentificacionPaciente() == id) {
-            paciente->setNombrePaciente(nuevoNombre);
+        if (paciente->getIdentificacion() == id) {
+            paciente->setNombre(nuevoNombre);
             paciente->setDireccionPaciente(nuevaDireccion);
             break;
         }
@@ -34,7 +34,7 @@ void GestionPacientes::mostrarPacientes() const {
 
 Paciente* GestionPacientes::buscarPaciente(string id) {
     for (Paciente* paciente : pacientes) {
-        if (paciente->getIdentificacionPaciente() == id) {
+        if (paciente->getIdentificacion() == id) {
             return paciente;
         }
     }

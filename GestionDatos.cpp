@@ -33,7 +33,6 @@ void GestionDatos::cargarDatos() {
     ifstream archivo("datos_hospital.txt");
     string linea;
     while (getline(archivo, linea)) {
-        // Parse the line and load data into appropriate structures
     }
     archivo.close();
 }
