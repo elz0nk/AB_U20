@@ -41,100 +41,107 @@ int main()
             continue;
         }
 
-        string nombre, id, dir, esp;
-        int dia, mes, anio;
+        string nombreMedico, nombrePaciente, idMedico, idPaciente, direccionPaciente, especialidadMedico, descripcionCita;
+        int diaNacimientoPaciente, mesNacimientoPaciente, anioNacimientoPaciente, diaCita, mesCita, anioCita;
 
         switch (opcion)
         {
         case 1:{
             cout << "Ingrese el nombre del paciente: ";
             cin.ignore();
-            getline(cin, nombre);
+            getline(cin, nombrePaciente);
 
             cout << "Ingrese la identificacion del paciente: ";
-            cin >> id;
+            cin >> idPaciente;
 
             cout << "Ingrese la fecha de nacimiento del paciente (dd mm aaaa): ";
-            cin >> dia >> mes >> anio;
+            cin >> diaNacimientoPaciente >> mesNacimientoPaciente >> anioNacimientoPaciente;
 
             cout << "Ingrese la direccion del paciente: ";
             cin.ignore();
-            getline(cin, dir);
+            getline(cin, direccionPaciente);
 
-            hospital.agregarPaciente(new Paciente(nombre, id, Fecha(dia, mes, anio), dir));
+            hospital.agregarPaciente(
+                new Paciente(nombrePaciente, idPaciente,
+                                     Fecha(diaNacimientoPaciente, mesNacimientoPaciente, anioNacimientoPaciente),
+                                                       direccionPaciente));
             break;
         }
         case 2:{
             cout << "Ingrese la identificacion del paciente a eliminar: ";
-            cin >> id;
-            hospital.eliminarPaciente(id);
+            cin >> idPaciente;
+            hospital.eliminarPaciente(idPaciente);
             break;
         }
         case 3:{
             cout << "Ingrese la identificacion del paciente a modificar: ";
-            cin >> id;
+            cin >> idPaciente;
 
             cout << "Ingrese el nuevo nombre del paciente: ";
             cin.ignore();
-            getline(cin, nombre);
+            getline(cin, nombrePaciente);
 
             cout << "Ingrese la nueva direccion del paciente: ";
             cin.ignore();
-            getline(cin, dir);
+            getline(cin, direccionPaciente);
 
-            hospital.modificarPaciente(id, nombre, dir);
+            hospital.modificarPaciente(idPaciente, nombrePaciente, direccionPaciente);
             break;
         }
         case 4:{
             cout << "Ingrese el nombre del medico: ";
             cin.ignore();
-            getline(cin, nombre);
+            getline(cin, nombreMedico);
+
+            cout << "Ingrese la identificacion del medico: ";
+            cin >> idMedico;
 
             cout << "Ingrese la especialidad del medico: ";
-            getline(cin, esp);
+            cin.ignore();
+            getline(cin, especialidadMedico);
 
-            hospital.agregarMedico(new Medico(nombre, esp));
+            hospital.agregarMedico(new Medico(nombreMedico, idMedico, especialidadMedico));
             break;
         }
         case 5:{
             cout << "Ingrese el nombre del medico a eliminar: ";
-            cin >> nombre;
-            hospital.eliminarMedico(nombre);
+            cin >> nombreMedico;
+            hospital.eliminarMedico(nombreMedico);
             break;
         }
         case 6:{
             cout << "Ingrese el nombre del medico a modificar: ";
             cin.ignore();
-            getline(cin, nombre);
+            getline(cin, nombreMedico);
 
             cout << "Ingrese la nueva especialidad del medico: ";
             cin.ignore();
-            getline(cin, esp);
+            getline(cin, especialidadMedico);
 
-            hospital.modificarMedico(nombre, esp);
+            hospital.modificarMedico(nombreMedico, especialidadMedico);
             break;
         }
         case 7:{
             cout << "Ingrese la identificacion del paciente: ";
-            cin >> id;
+            cin >> idPaciente;
 
             cout << "Ingrese el nombre del medico: ";
             cin.ignore();
-            getline(cin, nombre);
+            getline(cin, nombreMedico);
 
             cout << "Ingrese la fecha de la cita (dd mm aaaa): ";
-            cin >> dia >> mes >> anio;
+            cin >> diaCita >> mesCita >> anioCita;
 
             cout << "Ingrese la descripción de la cita: ";
             cin.ignore();
-            getline(cin, dir);
+            getline(cin, descripcionCita);
 
-            Paciente* paciente = hospital.buscarPaciente(id);
-            Medico* medico = hospital.buscarMedico(nombre);
+            Paciente* paciente = hospital.buscarPaciente(idPaciente);
+            Medico* medico = hospital.buscarMedico(nombreMedico);
 
             if (paciente != nullptr && medico != nullptr)
             {
-                hospital.agregarCita(CitaMedica(paciente, medico, Fecha(dia, mes, anio), dir));
+                hospital.agregarCita(CitaMedica(paciente, medico, Fecha(diaCita, mesCita, anioCita), descripcionCita));
             }
             else
             {
@@ -144,21 +151,21 @@ int main()
         }
         case 8:{
             cout << "Ingrese la identificación del paciente: ";
-            cin >> id;
+            cin >> idPaciente;
 
             cout << "Ingrese el nombre del medico: ";
             cin.ignore();
-            getline(cin, nombre);
+            getline(cin, nombreMedico);
 
             cout << "Ingrese la fecha de la cita a eliminar (dd mm aaaa): ";
-            cin >> dia >> mes >> anio;
+            cin >> diaCita >> mesCita >> anioCita;
 
-            Paciente* paciente = hospital.buscarPaciente(id);
-            Medico* medico = hospital.buscarMedico(nombre);
+            Paciente* paciente = hospital.buscarPaciente(idPaciente);
+            Medico* medico = hospital.buscarMedico(nombreMedico);
 
             if (paciente != nullptr && medico != nullptr)
             {
-                const CitaMedica& citaParaEliminar = CitaMedica(paciente, medico, Fecha(dia, mes, anio), string(""));
+                const CitaMedica& citaParaEliminar = CitaMedica(paciente, medico, Fecha(diaCita, mesCita, anioCita), string(""));
                 hospital.eliminarCita(citaParaEliminar);
             }
             else

@@ -10,12 +10,12 @@ void GestionMedicos::agregarMedico(Medico* medico) {
 
 void GestionMedicos::eliminarMedico(const string& nombre) {
     medicos.erase(remove_if(medicos.begin(), medicos.end(),
-        [&](Medico* medico) { return medico->getNombreMedico() == nombre; }), medicos.end());
+        [&](Medico* medico) { return medico->getNombre() == nombre; }), medicos.end());
 }
 
 void GestionMedicos::modificarMedico(string nombre, string nuevaEspecialidad) {
     for (auto& medico : medicos) {
-        if (medico->getNombreMedico() == nombre) {
+        if (medico->getNombre() == nombre) {
             medico->getEspecialidadMedico() = nuevaEspecialidad;
             break;
         }
@@ -31,7 +31,7 @@ void GestionMedicos::mostrarMedicos() const {
 
 Medico* GestionMedicos::buscarMedico(string nombre) {
     for (Medico* medico : medicos) {
-        if (medico->getNombreMedico() == nombre) {
+        if (medico->getNombre() == nombre) {
             return medico;
         }
     }

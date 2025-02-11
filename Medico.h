@@ -1,18 +1,17 @@
 #include <string>
+#include "Persona.h"
 
 #ifndef MEDICO_H
 #define MEDICO_H
 
 using namespace std;
 
-struct Medico {
+struct Medico : public Persona {
 private:
-    string nombre;
     string especialidad;
 
 public:
-    Medico(string nom, string esp) : nombre(nom), especialidad(esp) {}
-    string getNombreMedico() const;
+    Medico(string nom, string id, string esp) : Persona(nom, id), especialidad(esp) {}
     string getEspecialidadMedico() const;
     bool operator==(const Medico& otro) const;
     string toString() const;
