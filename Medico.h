@@ -15,6 +15,7 @@ public:
     string getEspecialidadMedico() const;
     bool operator==(const Medico& otro) const;
     string toString() const;
+    static Medico* fromString(const string& str);
 };
 
 #endif

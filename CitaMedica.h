@@ -18,6 +18,8 @@ public:
     bool operator==(const CitaMedica& otra) const;
 
     string toString() const;
+    
+    static CitaMedica CitaMedica::fromString(const string& str);
 };
 
 #endif

@@ -24,6 +24,8 @@ public:
 
     bool operator==(const Paciente& otro) const;
     string toString() const;
+
+    static Paciente* Paciente::fromString(const string& str);
 };
 
 #endif
