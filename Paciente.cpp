@@ -10,7 +10,7 @@ string Paciente::toString() const
 
 bool Paciente::operator==(const Paciente &otro) const
 {
-    return this->identificacion == otro.identificacion;
+    return this->getIdentificacion() == otro.getIdentificacion();
 }
 
 void Paciente::agregarHistorial(string registro)
@@ -20,7 +20,7 @@ void Paciente::agregarHistorial(string registro)
 
 void Paciente::mostrarHistorial() const
 {
-    cout << "Historial clínico de " << this->nombre << ":" << endl;
+    cout << "Historial clínico de " << this->getNombre() << ":" << endl;
     for (const string &registro : historial_clinico)
     {
         cout << "- " << registro << endl;

@@ -13,7 +13,7 @@ private:
 public:
     void agregarCita(const CitaMedica& cita);
     void eliminarCita(const CitaMedica& cita);
-    void modificarCita(Paciente* paciente, Medico* medico, Fecha fecha);
+    void modificarCita(Persona* paciente, Persona* medico, Fecha fecha);
     void ordenarCitasPorFecha();
     void mostrarCitas() const;
     vector<CitaMedica> getCitas() const;

@@ -1,31 +1,28 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-#include <algorithm>
 #include "GestionDatos.h"
-#include "SistemaHospital.h"
 #include "Medico.h"
-
-SistemaHospital sistemaHospital;
+#include "Paciente.h"
 
 void GestionDatos::guardarDatos() const
 {
     ofstream archivo("datos_hospital.txt");
 
     archivo << "Pacientes:\n";
-    for (Paciente *paciente : sistemaHospital.getPacientes())
+    for (Persona *paciente : gestionPacientes->getPersonas())
     {
-        archivo << paciente->toString() << "\n";
+        archivo << ((Paciente*) paciente)->toString() << "\n";
     }
 
     archivo << "Medicos:\n";
-    for (Medico *medico : sistemaHospital.getMedicos())
+    for (Persona *medico : gestionMedicos->getPersonas())
     {
-        archivo << medico->toString() << "\n";
+        archivo << ((Medico*) medico)->toString() << "\n";
     }
 
     archivo << "Citas:\n";
-    for (const CitaMedica &cita : sistemaHospital.getCitas())
+    for (const CitaMedica &cita : gestionCitas->getCitas())
     {
         archivo << cita.toString() << "\n";
     }
@@ -64,17 +61,17 @@ void GestionDatos::cargarDatos()
             if (seccion == "Pacientes")
             {
                 Paciente *paciente = Paciente::fromString(linea);
-                sistemaHospital.agregarPaciente(paciente);
+                gestionPacientes->agregarPersona(paciente);
             }
             else if (seccion == "Medicos")
             {
                 Medico *medico = Medico::fromString(linea);
-                sistemaHospital.agregarMedico(medico);
+                gestionMedicos->agregarPersona(medico);
             }
             else if (seccion == "Citas")
             {
                 CitaMedica cita = CitaMedica::fromString(linea);
-                sistemaHospital.agregarCita(cita);
+                gestionCitas->agregarCita(cita);
             }
         }
     }

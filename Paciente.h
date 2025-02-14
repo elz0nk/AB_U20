@@ -17,9 +17,6 @@ public:
     
     void agregarHistorial(string registro);
     void mostrarHistorial() const;
-
-    //string getIdentificacionPaciente() const;
-    //void setNombrePaciente(string nom);
     void setDireccionPaciente(string dir);
 
     bool operator==(const Paciente& otro) const;

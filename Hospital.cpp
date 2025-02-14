@@ -1,17 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "SistemaHospital.h"
-#include "Paciente.h"
-#include "Medico.h"
+#include "GestionCitas.h"
+#include "GestionDatos.h"
+#include "GestionPersonas.h"
+#include "GestionPacientes.h"
+#include "GestionMedicos.h"
 #include "CitaMedica.h"
+#include "Medico.h"
+#include "Paciente.h"
 
 using namespace std;
 
 int main()
 {
-    SistemaHospital hospital;
-    hospital.cargarDatos();
+    GestionPersonas* gestionPacientes = new GestionPacientes();
+    GestionPersonas* gestionMedicos = new GestionMedicos();
+    GestionCitas gestionCitas;
+    GestionDatos gestionDatos(gestionPacientes, gestionMedicos, &gestionCitas);
+
+    gestionDatos.cargarDatos();
     int opcion=0;
     while (opcion<13)
     {
@@ -62,7 +70,7 @@ int main()
             cin.ignore();
             getline(cin, direccionPaciente);
 
-            hospital.agregarPaciente(
+            gestionPacientes->agregarPersona(
                 new Paciente(nombrePaciente, idPaciente,
                                      Fecha(diaNacimientoPaciente, mesNacimientoPaciente, anioNacimientoPaciente),
                                                        direccionPaciente));
@@ -71,7 +79,7 @@ int main()
         case 2:{
             cout << "Ingrese la identificacion del paciente a eliminar: ";
             cin >> idPaciente;
-            hospital.eliminarPaciente(idPaciente);
+            gestionPacientes->eliminarPersona(idPaciente);
             break;
         }
         case 3:{
@@ -86,7 +94,7 @@ int main()
             cin.ignore();
             getline(cin, direccionPaciente);
 
-            hospital.modificarPaciente(idPaciente, nombrePaciente, direccionPaciente);
+            gestionPacientes->modificarPersona(idPaciente, nombrePaciente, direccionPaciente);
             break;
         }
         case 4:{
@@ -101,13 +109,13 @@ int main()
             cin.ignore();
             getline(cin, especialidadMedico);
 
-            hospital.agregarMedico(new Medico(nombreMedico, idMedico, especialidadMedico));
+            gestionMedicos->agregarPersona(new Medico(nombreMedico, idMedico, especialidadMedico));
             break;
         }
         case 5:{
             cout << "Ingrese el nombre del medico a eliminar: ";
             cin >> nombreMedico;
-            hospital.eliminarMedico(nombreMedico);
+            gestionMedicos->eliminarPersona(nombreMedico);
             break;
         }
         case 6:{
@@ -119,7 +127,7 @@ int main()
             cin.ignore();
             getline(cin, especialidadMedico);
 
-            hospital.modificarMedico(nombreMedico, especialidadMedico);
+            gestionMedicos->modificarPersona("", nombreMedico, especialidadMedico);
             break;
         }
         case 7:{
@@ -137,12 +145,12 @@ int main()
             cin.ignore();
             getline(cin, descripcionCita);
 
-            Paciente* paciente = hospital.buscarPaciente(idPaciente);
-            Medico* medico = hospital.buscarMedico(nombreMedico);
+            Persona* paciente = gestionPacientes->buscarPersona(idPaciente);
+            Persona* medico = gestionMedicos->buscarPersona(nombreMedico);
 
             if (paciente != nullptr && medico != nullptr)
             {
-                hospital.agregarCita(CitaMedica(paciente, medico, Fecha(diaCita, mesCita, anioCita), descripcionCita));
+                gestionCitas.agregarCita(CitaMedica(paciente, medico, Fecha(diaCita, mesCita, anioCita), descripcionCita));
             }
             else
             {
@@ -161,13 +169,13 @@ int main()
             cout << "Ingrese la fecha de la cita a eliminar (dd mm aaaa): ";
             cin >> diaCita >> mesCita >> anioCita;
 
-            Paciente* paciente = hospital.buscarPaciente(idPaciente);
-            Medico* medico = hospital.buscarMedico(nombreMedico);
+            Persona* paciente = gestionPacientes->buscarPersona(idPaciente);
+            Persona* medico = gestionMedicos->buscarPersona(nombreMedico);
 
             if (paciente != nullptr && medico != nullptr)
             {
                 const CitaMedica& citaParaEliminar = CitaMedica(paciente, medico, Fecha(diaCita, mesCita, anioCita), string(""));
-                hospital.eliminarCita(citaParaEliminar);
+                gestionCitas.eliminarCita(citaParaEliminar);
             }
             else
             {
@@ -176,19 +184,19 @@ int main()
             break;
         }
         case 9:{
-            hospital.mostrarPacientes();
+            gestionPacientes->mostrarPersonas();
             break;
         }
         case 10:{
-            hospital.mostrarMedicos();
+            gestionMedicos->mostrarPersonas();
             break;
         }
         case 11:{
-            hospital.mostrarCitas();
+            gestionCitas.mostrarCitas();
             break;
         }
         case 12:{
-            hospital.guardarDatos();
+            gestionDatos.guardarDatos();
             break;
         }
         case 13:{

@@ -1,6 +1,5 @@
 #include <string>
-#include "Paciente.h"
-#include "Medico.h"
+#include "Persona.h"
 #include "Fecha.h"
 
 #ifndef CITA_MEDICA_H
@@ -8,12 +7,12 @@
 
 struct CitaMedica {
 public:
-    Paciente* paciente;
-    Medico* medico;
+    Persona* paciente;
+    Persona* medico;
     Fecha fecha;
     string descripcion;
 
-    CitaMedica(Paciente* p, Medico* m, Fecha f, string desc) : paciente(p), medico(m), fecha(f), descripcion(desc) {}
+    CitaMedica(Persona* p, Persona* m, Fecha f, string desc) : paciente(p), medico(m), fecha(f), descripcion(desc) {}
 
     bool operator==(const CitaMedica& otra) const;
 

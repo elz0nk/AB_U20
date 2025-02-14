@@ -15,7 +15,7 @@ void GestionCitas::eliminarCita(const CitaMedica& cita) {
              citas.end());
 }
 
-void GestionCitas::modificarCita(Paciente* paciente, Medico* medico, Fecha fecha) {
+void GestionCitas::modificarCita(Persona* paciente, Persona* medico, Fecha fecha) {
     for (auto& cita : citas) {
         if (cita.paciente == paciente) {
             cita.medico = medico;
