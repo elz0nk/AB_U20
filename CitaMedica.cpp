@@ -34,6 +34,5 @@ bool CitaMedica::operator==(const CitaMedica& otra) const {
     return paciente == otra.paciente
         && medico == otra.medico
         && fecha == otra.fecha
-        && descripcion == otra.descripcion
     ;
 }

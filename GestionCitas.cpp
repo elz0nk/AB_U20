@@ -10,7 +10,7 @@ void GestionCitas::agregarCita(const CitaMedica& cita) {
 
 void GestionCitas::eliminarCita(const CitaMedica& cita) {
     citas.erase(remove_if(citas.begin(), citas.end(),
-        [&](const CitaMedica& citaMedica) { 
+        [=](const CitaMedica& citaMedica) { 
             return cita == citaMedica; }),
              citas.end());
 }
